@@ -1468,9 +1468,19 @@ button {
   font-weight: 600;
 }
 
+.playground-section {
+  margin-bottom: 60px;
+}
+
 /* --------------------------------------------------------------------------
    11. CONTACT SECTION
    -------------------------------------------------------------------------- */
+.contact-section {
+  padding-top: 140px;
+  padding-bottom: 140px;
+  scroll-margin-top: 120px;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
