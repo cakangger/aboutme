@@ -224,7 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const typewriterElement = document.getElementById('typewriter');
   const roles = [
     'B2B Enterprise Technical Solution',
+    'Samsung Knox Solution Specialist',
     'Samsung R&D Institute Indonesia',
+    'Android Enterprise Certified Expert',
     'Security & Systems Engineer',
     'Microsoft Azure & Intune Specialist'
   ];
