@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // --------------------------------------------------------------------------
-  // 1. PARTICLE CANVAS BACKGROUND
+  // 1. ANTI-GRAVITY DYNAMIC CANVAS & PARTICLE FIELD
   // --------------------------------------------------------------------------
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
@@ -18,62 +18,170 @@ document.addEventListener('DOMContentLoaded', () => {
     height = canvas.height = window.innerHeight;
   });
 
-  const particles = [];
-  const particleCount = Math.min(Math.floor(window.innerWidth / 15), 75);
+  // Track Mouse Cursor for Anti-Gravity Force Field
+  const mouse = {
+    x: null,
+    y: null,
+    radius: 160
+  };
 
-  class Particle {
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  const particles = [];
+  const particleCount = Math.min(Math.floor(window.innerWidth / 12), 85);
+
+  class AntiGravityParticle {
     constructor() {
+      this.reset(true);
+    }
+
+    reset(initial = false) {
       this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.7;
-      this.vy = (Math.random() - 0.5) * 0.7;
-      this.radius = Math.random() * 2 + 1;
+      this.y = initial ? Math.random() * height : height + Math.random() * 20;
+      // Zero-Gravity Upward Drift
+      this.vy = -(Math.random() * 0.7 + 0.3);
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.radius = Math.random() * 2.2 + 1;
+      this.baseAlpha = Math.random() * 0.5 + 0.3;
+      this.alpha = this.baseAlpha;
+      this.angle = Math.random() * Math.PI * 2;
+      this.angularSpeed = (Math.random() - 0.5) * 0.02;
     }
 
     update() {
-      this.x += this.vx;
+      // Gentle sine-wave horizontal drift (Zero-Gravity floating)
+      this.angle += this.angularSpeed;
+      this.x += this.vx + Math.sin(this.angle) * 0.35;
       this.y += this.vy;
 
-      if (this.x < 0 || this.x > width) this.vx *= -1;
-      if (this.y < 0 || this.y > height) this.vy *= -1;
+      // Anti-Gravity Repulsion Force Field near mouse
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < mouse.radius) {
+          const forceDirectionX = dx / distance;
+          const forceDirectionY = dy / distance;
+          const force = (mouse.radius - distance) / mouse.radius;
+          const directionX = forceDirectionX * force * 4;
+          const directionY = forceDirectionY * force * 4;
+
+          this.x -= directionX;
+          this.y -= directionY;
+          this.alpha = Math.min(1, this.baseAlpha + 0.4);
+        } else {
+          this.alpha = this.baseAlpha;
+        }
+      }
+
+      // Respawn at bottom when floating out of top screen
+      if (this.y < -20 || this.x < -20 || this.x > width + 20) {
+        this.reset();
+      }
     }
 
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
+      ctx.fillStyle = `rgba(0, 242, 254, ${this.alpha})`;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = 'rgba(0, 242, 254, 0.8)';
       ctx.fill();
+      ctx.shadowBlur = 0; // reset
     }
   }
 
   for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
+    particles.push(new AntiGravityParticle());
+  }
+
+  // Floating Ambient Zero-Gravity Orbs
+  let orbAngle = 0;
+
+  function drawAmbientOrbs() {
+    orbAngle += 0.005;
+    
+    // Primary Orb
+    const orb1X = width * 0.2 + Math.sin(orbAngle) * 80;
+    const orb1Y = height * 0.3 + Math.cos(orbAngle * 0.8) * 60;
+    const grad1 = ctx.createRadialGradient(orb1X, orb1Y, 0, orb1X, orb1Y, 350);
+    grad1.addColorStop(0, 'rgba(0, 242, 254, 0.08)');
+    grad1.addColorStop(1, 'rgba(0, 242, 254, 0)');
+
+    ctx.fillStyle = grad1;
+    ctx.beginPath();
+    ctx.arc(orb1X, orb1Y, 350, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Secondary Orb
+    const orb2X = width * 0.8 - Math.cos(orbAngle * 0.7) * 90;
+    const orb2Y = height * 0.6 + Math.sin(orbAngle * 1.1) * 70;
+    const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 0, orb2X, orb2Y, 400);
+    grad2.addColorStop(0, 'rgba(157, 78, 221, 0.07)');
+    grad2.addColorStop(1, 'rgba(157, 78, 221, 0)');
+
+    ctx.fillStyle = grad2;
+    ctx.beginPath();
+    ctx.arc(orb2X, orb2Y, 400, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   function animateParticles() {
     ctx.clearRect(0, 0, width, height);
 
+    // Draw ambient zero-gravity background glow
+    drawAmbientOrbs();
+
+    // Update & draw anti-gravity particle node field
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
 
+      // Connect Anti-Gravity Constellation Lines
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 120) {
+        if (dist < 130) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0, 242, 254, ${0.15 - dist / 800})`;
+          ctx.strokeStyle = `rgba(0, 242, 254, ${0.18 - dist / 720})`;
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
+
+      // Magnetic line to cursor if nearby
+      if (mouse.x !== null && mouse.y !== null) {
+        const mdx = particles[i].x - mouse.x;
+        const mdy = particles[i].y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+
+        if (mdist < 140) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0, 242, 254, ${0.25 - mdist / 560})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
     }
+
     requestAnimationFrame(animateParticles);
   }
+
   animateParticles();
 
   // --------------------------------------------------------------------------
