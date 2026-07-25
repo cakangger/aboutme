@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyber">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Angger - Senior Software Engineer & Creative Technologist Portfolio. Building next-generation web applications, scalable cloud architecture, and modern digital experiences.">
+  <meta name="author" content="Angger (anggerkpp)">
+  <title>Angger | Software Engineer & Creative Technologist</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Angger<span class="logo-slash">/</span><span class="logo-bracket">&gt;</span>
+      </a>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" class="nav-link"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+        <li><a href="#skills" class="nav-link"><i class="fa-solid fa-code"></i> Skills</a></li>
+        <li><a href="#projects" class="nav-link"><i class="fa-solid fa-layer-group"></i> Projects</a></li>
+        <li><a href="#experience" class="nav-link"><i class="fa-solid fa-briefcase"></i> Experience</a></li>
+        <li><a href="#playground" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Themes</a></li>
+        <li><a href="#contact" class="nav-link btn-nav-cta"><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Quick Theme Toggle -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Quick Theme">
+          <i class="fa-solid fa-palette"></i>
+        </button>
+        
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-container">
+        
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span> Available for New Opportunities
+          </div>
+          
+          <h1 class="hero-title">
+            Hi, I'm <span class="gradient-text">Angger</span>
+          </h1>
+          
+          <h2 class="hero-subtitle">
+            I am a <span class="typewriter-text" id="typewriter"></span><span class="cursor">|</span>
+          </h2>
+          
+          <p class="hero-description">
+            Passionate about crafting high-performance web applications, scalable cloud infrastructure, and intuitive digital experiences with cutting-edge technologies.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">
+              <span>View Projects</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <span>Get In Touch</span> <i class="fa-solid fa-comments"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/anggerkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/anggerkpp" target="_blank" rel="noopener noreferrer" class="btn btn-social" title="GitHub Profile">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+
+          <!-- Hero Metrics -->
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span class="stat-number" data-target="5">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" data-target="35">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">Projects Built</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" data-target="99">0</span><span class="stat-plus">%</span>
+              <span class="stat-label">Client Satisfaction</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="avatar-wrapper">
+            <div class="avatar-glow"></div>
+            <div class="avatar-border"></div>
+            <img src="avatar.png" alt="Angger Portrait" class="avatar-img">
+            
+            <!-- Floating Tech Badges -->
+            <div class="floating-badge badge-1">
+              <i class="fa-brands fa-react"></i> React & Next.js
+            </div>
+            <div class="floating-badge badge-2">
+              <i class="fa-brands fa-node-js"></i> Node.js
+            </div>
+            <div class="floating-badge badge-3">
+              <i class="fa-solid fa-cloud"></i> Cloud Architecture
+            </div>
+            <div class="floating-badge badge-4">
+              <i class="fa-brands fa-python"></i> Python & AI
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- Scroll Indicator -->
+      <a href="#about" class="scroll-down-indicator" aria-label="Scroll down">
+        <i class="fa-solid fa-chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">&lt;01. About Me /&gt;</span>
+          <h2 class="section-title">Architecting the <span class="gradient-text">Digital Future</span></h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-bio-card glass-card">
+            <div class="card-header-icon">
+              <i class="fa-solid fa-terminal"></i>
+            </div>
+            <h3>Who I Am</h3>
+            <p>
+              I am a software engineer dedicated to building modern, resilient, and visually stunning web systems. With a strong blend of technical architecture and product design sensibility, I turn complex problems into elegant, user-friendly solutions.
+            </p>
+            <p>
+              Whether it's designing micro-frontends, optimizing real-time APIs, or orchestrating cloud deployments, I focus on clean code, performance, and memorable user experiences.
+            </p>
+
+            <div class="personal-highlights">
+              <div class="highlight-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Based in Indonesia</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fa-solid fa-language"></i>
+                <span>English & Indonesian</span>
+              </div>
+              <div class="highlight-item">
+                <i class="fa-solid fa-laptop-code"></i>
+                <span>Full-Stack Development</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Terminal Widget -->
+          <div class="terminal-widget glass-card">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="terminal-title">angger@developer:~ (zsh)</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line"><span class="prompt">$</span> cat profile.json</div>
+              <pre class="terminal-json">
+{
+  <span class="json-key">"name"</span>: <span class="json-string">"Angger"</span>,
+  <span class="json-key">"handle"</span>: <span class="json-string">"anggerkpp"</span>,
+  <span class="json-key">"role"</span>: <span class="json-string">"Senior Software Engineer"</span>,
+  <span class="json-key">"passions"</span>: [
+    <span class="json-string">"Web Applications"</span>,
+    <span class="json-string">"Cloud Infrastructure"</span>,
+    <span class="json-string">"UI Animation"</span>
+  ],
+  <span class="json-key">"coreValues"</span>: [
+    <span class="json-string">"Speed & Performance"</span>,
+    <span class="json-string">"Maintainable Code"</span>,
+    <span class="json-string">"Continuous Learning"</span>
+  ],
+  <span class="json-key">"status"</span>: <span class="json-string">"Ready to build awesome things 🚀"</span>
+}
+              </pre>
+              <div class="terminal-line"><span class="prompt">$</span> <span class="terminal-cursor">_</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Pillars -->
+        <div class="pillars-grid">
+          <div class="pillar-card glass-card">
+            <div class="pillar-icon"><i class="fa-solid fa-cubes"></i></div>
+            <h4>Clean Architecture</h4>
+            <p>Designing modular, scalable codebase systems built to evolve without technical debt.</p>
+          </div>
+          <div class="pillar-card glass-card">
+            <div class="pillar-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <h4>Peak Performance</h4>
+            <p>Optimizing load times, rendering pipelines, and API latency for instant responsiveness.</p>
+          </div>
+          <div class="pillar-card glass-card">
+            <div class="pillar-icon"><i class="fa-solid fa-pen-nib"></i></div>
+            <h4>Pixel-Perfect UI</h4>
+            <p>Creating intuitive, fluid, and memorable user interfaces with smooth micro-interactions.</p>
+          </div>
+          <div class="pillar-card glass-card">
+            <div class="pillar-icon"><i class="fa-solid fa-rocket"></i></div>
+            <h4>Rapid Innovation</h4>
+            <p>Transforming complex ideas into working production-ready solutions efficiently.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">&lt;02. Expertise /&gt;</span>
+          <h2 class="section-title">Technical <span class="gradient-text">Skills Matrix</span></h2>
+          <div class="section-line"></div>
+        </div>
+
+        <!-- Skills Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">All Tech</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+          <button class="filter-btn" data-filter="backend">Backend & DB</button>
+          <button class="filter-btn" data-filter="devops">DevOps & Cloud</button>
+          <button class="filter-btn" data-filter="tools">Tools & AI</button>
+        </div>
+
+        <div class="skills-grid" id="skills-grid">
+          <!-- Skill Items -->
+          <div class="skill-card glass-card" data-category="frontend">
+            <div class="skill-icon"><i class="fa-brands fa-react"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">React & Next.js</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+              <span class="skill-tag">SSR, ISR, Hooks, State Management</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="frontend">
+            <div class="skill-icon"><i class="fa-brands fa-js"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">TypeScript / ES6+</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+              <span class="skill-tag">Type Safety, Modern Async JS, Canvas API</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="frontend">
+            <div class="skill-icon"><i class="fa-brands fa-css3-alt"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">Modern CSS & Animations</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+              <span class="skill-tag">Vanilla CSS, Glassmorphism, Tailwind, Animations</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="backend">
+            <div class="skill-icon"><i class="fa-brands fa-node-js"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">Node.js & Express</span>
+                <span class="skill-percent">92%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 92%"></div></div>
+              <span class="skill-tag">REST APIs, GraphQL, WebSockets, Microservices</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="backend">
+            <div class="skill-icon"><i class="fa-brands fa-python"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">Python & Fast-API</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+              <span class="skill-tag">Async Python, Automation, Data Processing</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="backend">
+            <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">PostgreSQL & MongoDB</span>
+                <span class="skill-percent">88%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 88%"></div></div>
+              <span class="skill-tag">Schema Design, Indexing, ORMs (Prisma, Mongoose)</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="devops">
+            <div class="skill-icon"><i class="fa-brands fa-docker"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">Docker & Containerization</span>
+                <span class="skill-percent">88%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 88%"></div></div>
+              <span class="skill-tag">Multi-stage builds, Docker Compose, Deployment</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="devops">
+            <div class="skill-icon"><i class="fa-brands fa-aws"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">AWS & Cloud Services</span>
+                <span class="skill-percent">82%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 82%"></div></div>
+              <span class="skill-tag">EC2, S3, CloudFront, Lambda, CI/CD Pipelines</span>
+            </div>
+          </div>
+
+          <div class="skill-card glass-card" data-category="tools">
+            <div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div>
+            <div class="skill-info">
+              <div class="skill-header">
+                <span class="skill-name">Git & Workflows</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+              <span class="skill-tag">Git Flow, GitHub Actions, Code Reviews</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">&lt;03. Portfolio /&gt;</span>
+          <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+          <div class="section-line"></div>
+        </div>
+
+        <!-- Project Category Filters -->
+        <div class="filter-tabs">
+          <button class="project-filter-btn active" data-project-filter="all">All Projects</button>
+          <button class="project-filter-btn" data-project-filter="web">Web Apps</button>
+          <button class="project-filter-btn" data-project-filter="fullstack">Full-Stack</button>
+          <button class="project-filter-btn" data-project-filter="ai">AI & Cloud</button>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+
+          <!-- Project Card 1 -->
+          <div class="project-card glass-card" data-category="fullstack">
+            <div class="project-banner banner-gradient-1">
+              <div class="project-overlay">
+                <button class="btn-project-preview" data-project="1">Quick View <i class="fa-solid fa-eye"></i></button>
+              </div>
+              <span class="project-type-badge">Full-Stack</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Nexus Cloud Analytics Dashboard</h3>
+              <p class="project-desc">
+                Real-time cloud infrastructure monitor featuring live websocket metrics, resource usage charts, and automated threshold alerts.
+              </p>
+              <div class="project-tech-stack">
+                <span>Next.js</span>
+                <span>TypeScript</span>
+                <span>Node.js</span>
+                <span>WebSockets</span>
+              </div>
+              <div class="project-links">
+                <button class="project-link-btn view-details-btn" data-project="1">
+                  Details <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+                <a href="https://github.com/anggerkpp" target="_blank" rel="noopener noreferrer" class="project-social-icon" title="View Source">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 2 -->
+          <div class="project-card glass-card" data-category="web">
+            <div class="project-banner banner-gradient-2">
+              <div class="project-overlay">
+                <button class="btn-project-preview" data-project="2">Quick View <i class="fa-solid fa-eye"></i></button>
+              </div>
+              <span class="project-type-badge">Web Application</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Aura E-Commerce Engine</h3>
+              <p class="project-desc">
+                High-performance headless e-commerce store with instant search, smooth page transitions, and integrated payment gateways.
+              </p>
+              <div class="project-tech-stack">
+                <span>React</span>
+                <span>Tailwind CSS</span>
+                <span>Stripe API</span>
+                <span>GraphQL</span>
+              </div>
+              <div class="project-links">
+                <button class="project-link-btn view-details-btn" data-project="2">
+                  Details <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+                <a href="https://github.com/anggerkpp" target="_blank" rel="noopener noreferrer" class="project-social-icon" title="View Source">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 3 -->
+          <div class="project-card glass-card" data-category="ai">
+            <div class="project-banner banner-gradient-3">
+              <div class="project-overlay">
+                <button class="btn-project-preview" data-project="3">Quick View <i class="fa-solid fa-eye"></i></button>
+              </div>
+              <span class="project-type-badge">AI & Automation</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Synthetix AI Code Assistant</h3>
+              <p class="project-desc">
+                Developer productivity tool powered by LLM integration to generate automated unit tests, inline docs, and refactoring tips.
+              </p>
+              <div class="project-tech-stack">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>OpenAI API</span>
+                <span>Docker</span>
+              </div>
+              <div class="project-links">
+                <button class="project-link-btn view-details-btn" data-project="3">
+                  Details <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+                <a href="https://github.com/anggerkpp" target="_blank" rel="noopener noreferrer" class="project-social-icon" title="View Source">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section experience-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">&lt;04. Journey /&gt;</span>
+          <h2 class="section-title">Career <span class="gradient-text">Experience</span></h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content glass-card">
+              <span class="timeline-date">2023 — Present</span>
+              <h3 class="timeline-role">Senior Software Engineer</h3>
+              <h4 class="timeline-company">Tech Innovators Corp</h4>
+              <p class="timeline-text">
+                Leading full-stack web application development, optimizing API throughput by 40%, and mentoring junior engineers in clean code standards.
+              </p>
+              <div class="timeline-tags">
+                <span>Next.js</span><span>TypeScript</span><span>AWS</span><span>Docker</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content glass-card">
+              <span class="timeline-date">2021 — 2023</span>
+              <h3 class="timeline-role">Full-Stack Developer</h3>
+              <h4 class="timeline-company">Digital Solutions Studio</h4>
+              <p class="timeline-text">
+                Architected e-commerce and SaaS platforms for global client portfolio. Implemented CI/CD automated deployment workflows.
+              </p>
+              <div class="timeline-tags">
+                <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Tailwind</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content glass-card">
+              <span class="timeline-date">2019 — 2021</span>
+              <h3 class="timeline-role">Frontend Web Developer</h3>
+              <h4 class="timeline-company">Creative Tech Agency</h4>
+              <p class="timeline-text">
+                Built responsive web applications, animated splash sites, and interactive web tools focused on performance and accessibility.
+              </p>
+              <div class="timeline-tags">
+                <span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>Vue.js</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Theme Playground Section -->
+    <section id="playground" class="section playground-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">&lt;05. Interactive /&gt;</span>
+          <h2 class="section-title">Theme <span class="gradient-text">Customizer</span></h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="playground-box glass-card">
+          <p class="playground-intro">
+            Switch themes in real-time to customize the aesthetic of this portfolio site!
+          </p>
+
+          <div class="theme-buttons-grid">
+            <button class="theme-select-btn active" data-set-theme="cyber">
+              <span class="theme-color-preview cyber-preview"></span>
+              <span class="theme-name">Cyber Neon</span>
+            </button>
+
+            <button class="theme-select-btn" data-set-theme="aurora">
+              <span class="theme-color-preview aurora-preview"></span>
+              <span class="theme-name">Aurora Borealis</span>
+            </button>
+
+            <button class="theme-select-btn" data-set-theme="oled">
+              <span class="theme-color-preview oled-preview"></span>
+              <span class="theme-name">Midnight OLED</span>
+            </button>
+
+            <button class="theme-select-btn" data-set-theme="matrix">
+              <span class="theme-color-preview matrix-preview"></span>
+              <span class="theme-name">Matrix Hacker</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">&lt;06. Connect /&gt;</span>
+          <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-card glass-card">
+            <h3>Let's build something extraordinary together!</h3>
+            <p>
+              Whether you have a question, a project idea, or just want to connect, feel free to drop a message or reach out on social media.
+            </p>
+
+            <div class="contact-details">
+              <a href="mailto:anggerkpp@gmail.com" class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <span class="contact-label">Email</span>
+                  <span class="contact-value">anggerkpp@gmail.com</span>
+                </div>
+              </a>
+
+              <a href="https://www.linkedin.com/in/anggerkpp/" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <div class="contact-icon"><i class="fa-brands fa-linkedin"></i></div>
+                <div>
+                  <span class="contact-label">LinkedIn Profile</span>
+                  <span class="contact-value">linkedin.com/in/anggerkpp</span>
+                </div>
+              </a>
+
+              <a href="https://github.com/anggerkpp" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+                <div>
+                  <span class="contact-label">GitHub</span>
+                  <span class="contact-value">github.com/anggerkpp</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <form class="contact-form glass-card" id="contact-form">
+            <div class="form-group">
+              <label for="form-name">Your Name</label>
+              <input type="text" id="form-name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="form-email">Your Email</label>
+              <input type="email" id="form-email" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="form-subject">Subject</label>
+              <input type="text" id="form-subject" placeholder="Project Collaboration Inquiry" required>
+            </div>
+            <div class="form-group">
+              <label for="form-message">Message</label>
+              <textarea id="form-message" rows="5" placeholder="Hi Angger, I'd love to talk about..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Project Detail Modal -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal-card glass-card">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      <div id="modal-body-content">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p>© 2026 Angger. Built with passion & clean code.</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/anggerkpp/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/anggerkpp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+      </div>
+      <a href="#hero" class="back-to-top-btn" title="Back to Top"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+  </footer>
+
+  <!-- App JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
