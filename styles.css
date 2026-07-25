@@ -505,6 +505,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: right center;
   border-radius: 50%;
   border: 4px solid var(--bg-main);
   position: relative;
