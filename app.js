@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ANGGER PORTFOLIO - INTERACTIVE LOGIC & ANIMATIONS
+   ANGGER KARTYASA PRIBADI PUTRA - PORTFOLIO LOGIC
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const particles = [];
-  const particleCount = Math.min(Math.floor(window.innerWidth / 15), 80);
+  const particleCount = Math.min(Math.floor(window.innerWidth / 15), 75);
 
   class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.8;
-      this.vy = (Math.random() - 0.5) * 0.8;
+      this.vx = (Math.random() - 0.5) * 0.7;
+      this.vy = (Math.random() - 0.5) * 0.7;
       this.radius = Math.random() * 2 + 1;
     }
 
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 242, 254, 0.5)';
+      ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
       ctx.fill();
     }
   }
@@ -81,15 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   const typewriterElement = document.getElementById('typewriter');
   const roles = [
-    'Senior Software Engineer',
-    'Full-Stack Architect',
-    'Creative Technologist',
-    'Cloud Systems Developer'
+    'B2B Enterprise Technical Solution',
+    'Samsung R&D Institute Indonesia',
+    'Security & Systems Engineer',
+    'Microsoft Azure & Intune Specialist'
   ];
   let roleIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  let typingSpeed = 100;
+  let typingSpeed = 90;
 
   function typeEffect() {
     const currentRole = roles[roleIndex];
@@ -97,20 +97,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isDeleting) {
       typewriterElement.textContent = currentRole.substring(0, charIndex - 1);
       charIndex--;
-      typingSpeed = 50;
+      typingSpeed = 45;
     } else {
       typewriterElement.textContent = currentRole.substring(0, charIndex + 1);
       charIndex++;
-      typingSpeed = 100;
+      typingSpeed = 90;
     }
 
     if (!isDeleting && charIndex === currentRole.length) {
-      typingSpeed = 2000; // Pause at full text
+      typingSpeed = 2200; // Pause at full text
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       roleIndex = (roleIndex + 1) % roles.length;
-      typingSpeed = 500;
+      typingSpeed = 400;
     }
 
     setTimeout(typeEffect, typingSpeed);
@@ -142,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Trigger counters on scroll into hero view
   const heroSection = document.getElementById('hero');
   const observerOptions = { threshold: 0.5 };
   const heroObserver = new IntersectionObserver((entries) => {
@@ -195,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle.classList.toggle('open');
   });
 
-  // Close mobile menu on link click
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navLinksContainer.classList.remove('active');
@@ -235,9 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 6. SKILL FILTERING & PROJECT FILTERING
+  // 6. SKILL FILTERING
   // --------------------------------------------------------------------------
-  // Skill Filters
   const skillFilterBtns = document.querySelectorAll('.filter-btn');
   const skillCards = document.querySelectorAll('.skill-card');
 
@@ -260,67 +257,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Project Filters
-  const projectFilterBtns = document.querySelectorAll('.project-filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  projectFilterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      projectFilterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-project-filter');
-
-      projectCards.forEach(card => {
-        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-          card.style.display = 'flex';
-          card.style.opacity = '1';
-        } else {
-          card.style.display = 'none';
-          card.style.opacity = '0';
-        }
-      });
-    });
-  });
-
   // --------------------------------------------------------------------------
-  // 7. PROJECT MODAL POPUP DATA & HANDLER
+  // 7. PROJECT MODAL DATA & HANDLER
   // --------------------------------------------------------------------------
   const projectsData = {
     '1': {
-      title: 'Nexus Cloud Analytics Dashboard',
-      category: 'Full-Stack & Cloud Architecture',
-      description: 'An enterprise-grade real-time infrastructure metrics portal designed to process high-throughput server telemetry data. Supports customizable widget layouts, threshold triggers, and real-time alerts via WebSockets.',
-      tech: ['Next.js 14', 'TypeScript', 'Node.js', 'Redis', 'WebSockets', 'Chart.js', 'Docker'],
+      title: 'Samsung & Microsoft Intune Enterprise MDM',
+      category: 'B2B Mobility & Device Security',
+      description: 'End-to-end B2B mobile device management solution combining Samsung Knox suite policies with Microsoft Intune cloud architecture to secure corporate mobile fleets.',
+      tech: ['Samsung Knox Suite', 'Microsoft Intune', 'Android Enterprise', 'Azure AD / Entra ID', 'Conditional Access'],
       features: [
-        'Sub-100ms real-time metric streaming over WebSockets',
-        'Interactive customizable dashboard widgets & historical data playback',
-        'Automated alert notification integration via Discord & Slack webhooks',
-        'Multi-node Docker orchestration setup'
+        'Automated device enrollment & zero-touch enterprise deployment',
+        'Granular compliance policy enforcement & remote device wipes',
+        'Secure app containerization for corporate data isolation',
+        'Integration with Azure Active Directory identity management'
       ]
     },
     '2': {
-      title: 'Aura E-Commerce Engine',
-      category: 'Headless E-Commerce Platform',
-      description: 'A ultra-fast headless e-commerce application engineered for instant page loads and seamless shopping experiences. Features client-side state caching, optimistic UI updates, and integrated checkout flows.',
-      tech: ['React', 'Tailwind CSS', 'Stripe Payments', 'GraphQL API', 'Vite', 'Framer Motion'],
+      title: 'Azure Sentinel & Defender SIEM Operations',
+      category: 'Enterprise Cloud Security',
+      description: 'Centralized Security Operations Center (SOC) threat detection and incident response pipeline engineered around Microsoft Sentinel and Azure Defender.',
+      tech: ['Azure Sentinel SIEM', 'Microsoft Defender for Endpoint', 'Azure Security Center', 'KQL (Kusto Query)', 'Log Analytics'],
       features: [
-        'Faceted instant product filtering & semantic text search',
-        'Smooth micro-interactions and shopping cart animations',
-        'Stripe Checkout API integration with PCI compliance',
-        'Lighthouse performance score of 98+'
+        'Real-time security log ingestion & anomaly threat detection',
+        'Custom KQL query playbooks for threat hunting and incident classification',
+        'Automated alert routing for potential compromise indicators',
+        'Security posture compliance reporting across enterprise workloads'
       ]
     },
     '3': {
-      title: 'Synthetix AI Code Assistant',
-      category: 'Developer Productivity & AI Tools',
-      description: 'An AI-powered development workflow helper designed to automatically inspect code changes, generate comprehensive unit tests, create API docs, and flag anti-patterns.',
-      tech: ['Python 3.11', 'FastAPI', 'OpenAI GPT-4 API', 'Docker', 'React', 'Monaco Editor'],
+      title: 'Hybrid Messaging & Windows Server Infrastructure',
+      category: 'Enterprise Infrastructure & Messaging',
+      description: 'Resilient hybrid messaging deployment supporting Microsoft Exchange Server, Exchange Online, ADFS authentication, and core Active Directory services.',
+      tech: ['Windows Server (2012-2022)', 'Active Directory & ADFS', 'Exchange Online / O365', 'DNS / DHCP / WSUS', 'Microsoft Intune'],
       features: [
-        'Automated test suite generation for Python and JS/TS codebases',
-        'In-browser interactive code editor with real-time AI suggestions',
-        'AST (Abstract Syntax Tree) parsing for precise contextual prompts',
-        'Export generated tests directly into GitHub PR workflows'
+        'High-availability mailflow architecture & failover redundancy strategies',
+        'Active Directory Domain Services & ADFS Single-Sign-On deployment',
+        'Tier 2 & Tier 3 incident resolution and operational support',
+        'WSUS update management and ADCS certificate services'
       ]
     }
   };
@@ -338,19 +312,19 @@ document.addEventListener('DOMContentLoaded', () => {
       <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 16px;">${data.title}</h2>
       <p style="color: var(--text-muted); margin-bottom: 24px;">${data.description}</p>
       
-      <h4 style="font-family: var(--font-heading); margin-bottom: 12px;">Key Highlights:</h4>
+      <h4 style="font-family: var(--font-heading); margin-bottom: 12px;">Key Architectural Highlights:</h4>
       <ul style="list-style: none; padding-left: 0; margin-bottom: 24px; color: var(--text-muted);">
-        ${data.features.map(f => `<li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: var(--primary);"></i> ${f}</li>`).join('')}
+        ${data.features.map(f => `<li style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> ${f}</li>`).join('')}
       </ul>
 
-      <h4 style="font-family: var(--font-heading); margin-bottom: 12px;">Tech Stack Used:</h4>
+      <h4 style="font-family: var(--font-heading); margin-bottom: 12px;">Enterprise Tech Stack:</h4>
       <div class="project-tech-stack" style="margin-bottom: 28px;">
         ${data.tech.map(t => `<span style="background: rgba(0, 242, 254, 0.1); border-color: var(--border-glow); color: var(--primary);">${t}</span>`).join('')}
       </div>
 
       <div style="display: flex; gap: 16px;">
-        <a href="https://github.com/anggerkpp" target="_blank" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
-          <i class="fa-brands fa-github"></i> View Repository
+        <a href="https://www.linkedin.com/in/anggerkpp/" target="_blank" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
         </a>
         <button onclick="document.getElementById('project-modal').classList.remove('active')" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem;">
           Close
@@ -362,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelectorAll('.btn-project-preview, .view-details-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', () => {
       const projectId = btn.getAttribute('data-project');
       openProjectModal(projectId);
     });
@@ -401,7 +375,6 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const name = document.getElementById('form-name').value;
     
-    // Simulate sending state
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
@@ -411,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
       contactForm.reset();
-      showToast(`Thank you, ${name}! Your message has been sent successfully.`);
+      showToast(`Thank you, ${name}! Your message has been sent to Angger.`);
     }, 1200);
   });
 
