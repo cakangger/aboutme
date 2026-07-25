@@ -388,4 +388,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1200);
   });
 
+  // --------------------------------------------------------------------------
+  // 9. RECENT ACTIVITIES SWIPER SLIDER
+  // --------------------------------------------------------------------------
+  if (typeof Swiper !== 'undefined') {
+    const activitiesSwiper = new Swiper('.activities-swiper-container', {
+      slidesPerView: 1,
+      spaceBetween: 28,
+      loop: true,
+      grabCursor: true,
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.activity-swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.activity-swiper-next',
+        prevEl: '.activity-swiper-prev',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 32,
+        }
+      }
+    });
+  }
+
 });

@@ -15,6 +15,9 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
+  <!-- Swiper.js Slider CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -258,64 +261,107 @@
           <div class="section-line"></div>
         </div>
 
-        <div class="activities-grid">
+        <div class="activities-swiper-container swiper">
+          <div class="swiper-wrapper">
 
-          <!-- Activity Card 1 -->
-          <div class="activity-card glass-card">
-            <div class="activity-media-container">
-              <img src="activity1.jpg" alt="Android Enterprise Partner Connect 2025" class="activity-img">
-              <div class="activity-badge-overlay">
-                <i class="fa-brands fa-linkedin"></i> LinkedIn Activity
+            <!-- Activity Slide 1 -->
+            <div class="swiper-slide">
+              <div class="activity-card glass-card">
+                <div class="activity-media-container">
+                  <img src="activity1.jpg" alt="Android Enterprise Partner Connect 2025" class="activity-img">
+                  <div class="activity-badge-overlay">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn Activity
+                  </div>
+                </div>
+                <div class="activity-content">
+                  <span class="activity-date"><i class="fa-regular fa-calendar-days"></i> Partner Event</span>
+                  <h3 class="activity-title">Android Enterprise Partner Connect 2025</h3>
+                  <p class="activity-text">
+                    Attended the special Android Enterprise Partner Connect 2025 event in Jakarta with my Samsung R&D Institute Indonesia (SRIN) colleagues.
+                  </p>
+                  <div class="activity-hashtags">
+                    <span>#androidenterprise</span>
+                    <span>#androidforwork</span>
+                    <span>#androidsecurity</span>
+                    <span>#google</span>
+                  </div>
+                  <div class="activity-footer">
+                    <a href="https://www.linkedin.com/posts/anggerkpp_androidenterprise-androidforwork-android-ugcPost-7330155890626441216-3VG0/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABmsvUsBqH32wPEhJGOdFKYO3Qc7VvvFPhA" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                      <span>View Post on LinkedIn</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="activity-content">
-              <span class="activity-date"><i class="fa-regular fa-calendar-days"></i> Partner Event</span>
-              <h3 class="activity-title">Android Enterprise Partner Connect 2025</h3>
-              <p class="activity-text">
-                Attended the special Android Enterprise Partner Connect 2025 event in Jakarta with my Samsung R&D Institute Indonesia (SRIN) colleagues.
-              </p>
-              <div class="activity-hashtags">
-                <span>#androidenterprise</span>
-                <span>#androidforwork</span>
-                <span>#androidsecurity</span>
-                <span>#google</span>
-              </div>
-              <div class="activity-footer">
-                <a href="https://www.linkedin.com/posts/anggerkpp_androidenterprise-androidforwork-android-ugcPost-7330155890626441216-3VG0/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABmsvUsBqH32wPEhJGOdFKYO3Qc7VvvFPhA" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                  <span>View Post on LinkedIn</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+
+            <!-- Activity Slide 2 -->
+            <div class="swiper-slide">
+              <div class="activity-card glass-card">
+                <div class="activity-media-container">
+                  <img src="activity2.jpg" alt="Google Cybersecurity Certification" class="activity-img">
+                  <div class="activity-badge-overlay">
+                    <i class="fa-brands fa-linkedin"></i> Certification
+                  </div>
+                </div>
+                <div class="activity-content">
+                  <span class="activity-date"><i class="fa-solid fa-award"></i> Professional Credential</span>
+                  <h3 class="activity-title">Google Cybersecurity Certification</h3>
+                  <p class="activity-text">
+                    Obtained official Google Cybersecurity Certification from Google, validating expertise in enterprise threat detection, Cloud SIEM, and security operations.
+                  </p>
+                  <div class="activity-hashtags">
+                    <span>#googlecybersecurity</span>
+                    <span>#googlecloudsecurity</span>
+                    <span>#secops</span>
+                    <span>#siem</span>
+                  </div>
+                  <div class="activity-footer">
+                    <a href="https://www.linkedin.com/posts/anggerkpp_googlecybersecurity-googlecloudsecurity-activity-7310465763214008320-V6ea?utm_source=share&utm_medium=member_desktop&rcm=ACoAABmsvUsBqH32wPEhJGOdFKYO3Qc7VvvFPhA" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                      <span>View Post on LinkedIn</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <!-- Activity Slide 3 -->
+            <div class="swiper-slide">
+              <div class="activity-card glass-card">
+                <div class="activity-media-container">
+                  <img src="avatar.png" alt="Samsung STAR Team Award Presentation" class="activity-img">
+                  <div class="activity-badge-overlay">
+                    <i class="fa-solid fa-trophy"></i> Samsung Award
+                  </div>
+                </div>
+                <div class="activity-content">
+                  <span class="activity-date"><i class="fa-solid fa-star"></i> Back-to-Back Winner</span>
+                  <h3 class="activity-title">Samsung STAR Team Award (2024 & 2025)</h3>
+                  <p class="activity-text">
+                    Awarded Samsung Technical Advance Response (STAR) Team honors for excellence in Mobile B2B Consultation, Samsung Knox Suite, and Enterprise Support.
+                  </p>
+                  <div class="activity-hashtags">
+                    <span>#samsung</span>
+                    <span>#samsungknox</span>
+                    <span>#starteam</span>
+                    <span>#b2bsolutions</span>
+                  </div>
+                  <div class="activity-footer">
+                    <a href="https://www.linkedin.com/in/anggerkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                      <span>Explore Profile</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Activity Card 2 -->
-          <div class="activity-card glass-card">
-            <div class="activity-media-container">
-              <img src="activity2.jpg" alt="Google Cybersecurity Certification" class="activity-img">
-              <div class="activity-badge-overlay">
-                <i class="fa-brands fa-linkedin"></i> Certification
-              </div>
-            </div>
-            <div class="activity-content">
-              <span class="activity-date"><i class="fa-solid fa-award"></i> Professional Credential</span>
-              <h3 class="activity-title">Google Cybersecurity Certification</h3>
-              <p class="activity-text">
-                Obtained official Google Cybersecurity Certification from Google, validating expertise in enterprise threat detection, Cloud SIEM, and security operations.
-              </p>
-              <div class="activity-hashtags">
-                <span>#googlecybersecurity</span>
-                <span>#googlecloudsecurity</span>
-                <span>#secops</span>
-                <span>#siem</span>
-              </div>
-              <div class="activity-footer">
-                <a href="https://www.linkedin.com/posts/anggerkpp_googlecybersecurity-googlecloudsecurity-activity-7310465763214008320-V6ea?utm_source=share&utm_medium=member_desktop&rcm=ACoAABmsvUsBqH32wPEhJGOdFKYO3Qc7VvvFPhA" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                  <span>View Post on LinkedIn</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-              </div>
-            </div>
+          <!-- Swiper Controls -->
+          <div class="swiper-controls">
+            <button class="activity-swiper-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="activity-swiper-pagination"></div>
+            <button class="activity-swiper-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
-
         </div>
       </div>
     </section>
@@ -870,6 +916,9 @@
       <a href="#hero" class="back-to-top-btn" title="Back to Top"><i class="fa-solid fa-arrow-up"></i></a>
     </div>
   </footer>
+
+  <!-- Swiper.js Slider Script -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!-- App JavaScript -->
   <script src="app.js"></script>
