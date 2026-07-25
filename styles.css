@@ -1335,9 +1335,44 @@ button {
 }
 
 .timeline-company {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.timeline-company-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: transform var(--transition-fast);
+}
+
+.timeline-company-logo:hover {
+  transform: scale(1.08);
+}
+
+.logo-samsung {
+  height: 26px;
+  background: #ffffff;
+}
+
+.logo-agit {
+  height: 28px;
+  background: #ffffff;
+}
+
+.logo-telkom {
+  height: 34px;
+  background: transparent;
+  padding: 0;
 }
 
 .timeline-text {
