@@ -418,4 +418,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --------------------------------------------------------------------------
+  // 10. DYNAMIC SCROLL ZOOM & REVEAL OBSERVER
+  // --------------------------------------------------------------------------
+  const zoomElements = document.querySelectorAll('.scroll-zoom-in, .scroll-zoom-out');
+
+  const scrollZoomObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  zoomElements.forEach(el => scrollZoomObserver.observe(el));
+
+  // Dynamic Parallax Zoom Scaling on Scroll
+  const heroVisual = document.querySelector('.hero-visual');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (heroVisual && scrollY < 700) {
+      heroVisual.style.transform = `scale(${1 - scrollY * 0.00025}) translateY(${scrollY * 0.08}px)`;
+    }
+  });
+
 });
