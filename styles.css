@@ -1167,6 +1167,17 @@ button {
 .banner-gradient-2 { background: linear-gradient(135deg, #130924, #3a0ca3, #7209b7); }
 .banner-gradient-3 { background: linear-gradient(135deg, #0a1b16, #064e3b, #0284c7); }
 
+.project-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.project-card:hover .project-banner-img {
+  transform: scale(1.06);
+}
+
 .banner-svg-illustration {
   width: 100%;
   height: 100%;
