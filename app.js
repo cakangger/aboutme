@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // --------------------------------------------------------------------------
-  // 1. ANTI-GRAVITY DYNAMIC CANVAS & PARTICLE FIELD
+  // 1. GOOGLE ANTIGRAVITY-GRADE DYNAMIC CANVAS & COSMIC PARTICLE SYSTEM
   // --------------------------------------------------------------------------
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
@@ -18,73 +18,92 @@ document.addEventListener('DOMContentLoaded', () => {
     height = canvas.height = window.innerHeight;
   });
 
-  // Track Mouse Cursor for Anti-Gravity Force Field
+  // Track Mouse Cursor with Smooth Inertia
   const mouse = {
-    x: null,
-    y: null,
-    radius: 160
+    x: width / 2,
+    y: height / 2,
+    targetX: width / 2,
+    targetY: height / 2,
+    radius: 180,
+    active: false
   };
 
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
+    mouse.active = true;
   });
 
   window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
+    mouse.active = false;
   });
 
-  const particles = [];
-  const particleCount = Math.min(Math.floor(window.innerWidth / 12), 85);
+  // Google Antigravity Color Palette
+  const colors = [
+    { r: 0, g: 242, b: 254 },   // Electric Cyan
+    { r: 157, g: 78, b: 221 },  // Neon Purple
+    { r: 16, g: 185, b: 129 },  // Emerald Mint
+    { r: 251, g: 188, b: 4 }    // Solar Gold
+  ];
 
-  class AntiGravityParticle {
+  const particles = [];
+  const particleCount = Math.min(Math.floor(window.innerWidth / 10), 95);
+
+  class GoogleAntigravityParticle {
     constructor() {
       this.reset(true);
     }
 
     reset(initial = false) {
       this.x = Math.random() * width;
-      this.y = initial ? Math.random() * height : height + Math.random() * 20;
-      // Zero-Gravity Upward Drift
-      this.vy = -(Math.random() * 0.7 + 0.3);
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.radius = Math.random() * 2.2 + 1;
-      this.baseAlpha = Math.random() * 0.5 + 0.3;
+      this.y = initial ? Math.random() * height : height + Math.random() * 30;
+      
+      // Upward Anti-Gravity Drift
+      this.vy = -(Math.random() * 0.65 + 0.25);
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.radius = Math.random() * 2.4 + 1.1;
+      
+      // Select Color from Antigravity Palette
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.baseAlpha = Math.random() * 0.45 + 0.3;
       this.alpha = this.baseAlpha;
-      this.angle = Math.random() * Math.PI * 2;
-      this.angularSpeed = (Math.random() - 0.5) * 0.02;
+      
+      // Zero-Gravity Oscillation
+      this.angleX = Math.random() * Math.PI * 2;
+      this.angleY = Math.random() * Math.PI * 2;
+      this.speedX = (Math.random() - 0.5) * 0.02;
+      this.speedY = (Math.random() - 0.5) * 0.015;
     }
 
     update() {
-      // Gentle sine-wave horizontal drift (Zero-Gravity floating)
-      this.angle += this.angularSpeed;
-      this.x += this.vx + Math.sin(this.angle) * 0.35;
-      this.y += this.vy;
+      // Oscillating Fluid Motion
+      this.angleX += this.speedX;
+      this.angleY += this.speedY;
+      
+      this.x += this.vx + Math.sin(this.angleX) * 0.45;
+      this.y += this.vy + Math.cos(this.angleY) * 0.2;
 
-      // Anti-Gravity Repulsion Force Field near mouse
-      if (mouse.x !== null && mouse.y !== null) {
+      // Mouse Inertia Force Field
+      if (mouse.active) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < mouse.radius) {
-          const forceDirectionX = dx / distance;
-          const forceDirectionY = dy / distance;
-          const force = (mouse.radius - distance) / mouse.radius;
-          const directionX = forceDirectionX * force * 4;
-          const directionY = forceDirectionY * force * 4;
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          const fx = (dx / dist) * force * 5;
+          const fy = (dy / dist) * force * 5;
 
-          this.x -= directionX;
-          this.y -= directionY;
+          this.x -= fx;
+          this.y -= fy;
           this.alpha = Math.min(1, this.baseAlpha + 0.4);
         } else {
           this.alpha = this.baseAlpha;
         }
       }
 
-      // Respawn at bottom when floating out of top screen
-      if (this.y < -20 || this.x < -20 || this.x > width + 20) {
+      // Respawn at bottom when floating above screen
+      if (this.y < -30 || this.x < -30 || this.x > width + 30) {
         this.reset();
       }
     }
@@ -92,87 +111,102 @@ document.addEventListener('DOMContentLoaded', () => {
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 242, 254, ${this.alpha})`;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = 'rgba(0, 242, 254, 0.8)';
+      ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
+      ctx.shadowBlur = 14;
+      ctx.shadowColor = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0.7)`;
       ctx.fill();
-      ctx.shadowBlur = 0; // reset
+      ctx.shadowBlur = 0;
     }
   }
 
   for (let i = 0; i < particleCount; i++) {
-    particles.push(new AntiGravityParticle());
+    particles.push(new GoogleAntigravityParticle());
   }
 
-  // Floating Ambient Zero-Gravity Orbs
-  let orbAngle = 0;
+  // Floating Ambient 3-Orb Cosmic Mesh
+  let orbTime = 0;
 
-  function drawAmbientOrbs() {
-    orbAngle += 0.005;
-    
-    // Primary Orb
-    const orb1X = width * 0.2 + Math.sin(orbAngle) * 80;
-    const orb1Y = height * 0.3 + Math.cos(orbAngle * 0.8) * 60;
-    const grad1 = ctx.createRadialGradient(orb1X, orb1Y, 0, orb1X, orb1Y, 350);
-    grad1.addColorStop(0, 'rgba(0, 242, 254, 0.08)');
+  function drawCosmicAmbientOrbs() {
+    orbTime += 0.004;
+
+    // Orb 1: Electric Cyan
+    const orb1X = width * 0.25 + Math.sin(orbTime) * 110;
+    const orb1Y = height * 0.35 + Math.cos(orbTime * 0.8) * 80;
+    const grad1 = ctx.createRadialGradient(orb1X, orb1Y, 0, orb1X, orb1Y, 400);
+    grad1.addColorStop(0, 'rgba(0, 242, 254, 0.09)');
     grad1.addColorStop(1, 'rgba(0, 242, 254, 0)');
 
     ctx.fillStyle = grad1;
     ctx.beginPath();
-    ctx.arc(orb1X, orb1Y, 350, 0, Math.PI * 2);
+    ctx.arc(orb1X, orb1Y, 400, 0, Math.PI * 2);
     ctx.fill();
 
-    // Secondary Orb
-    const orb2X = width * 0.8 - Math.cos(orbAngle * 0.7) * 90;
-    const orb2Y = height * 0.6 + Math.sin(orbAngle * 1.1) * 70;
-    const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 0, orb2X, orb2Y, 400);
-    grad2.addColorStop(0, 'rgba(157, 78, 221, 0.07)');
+    // Orb 2: Deep Purple
+    const orb2X = width * 0.75 - Math.cos(orbTime * 0.7) * 120;
+    const orb2Y = height * 0.65 + Math.sin(orbTime * 1.1) * 90;
+    const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 0, orb2X, orb2Y, 450);
+    grad2.addColorStop(0, 'rgba(157, 78, 221, 0.08)');
     grad2.addColorStop(1, 'rgba(157, 78, 221, 0)');
 
     ctx.fillStyle = grad2;
     ctx.beginPath();
-    ctx.arc(orb2X, orb2Y, 400, 0, Math.PI * 2);
+    ctx.arc(orb2X, orb2Y, 450, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Orb 3: Emerald Glow
+    const orb3X = width * 0.5 + Math.cos(orbTime * 0.9) * 90;
+    const orb3Y = height * 0.2 + Math.sin(orbTime * 0.6) * 70;
+    const grad3 = ctx.createRadialGradient(orb3X, orb3Y, 0, orb3X, orb3Y, 320);
+    grad3.addColorStop(0, 'rgba(16, 185, 129, 0.06)');
+    grad3.addColorStop(1, 'rgba(16, 185, 129, 0)');
+
+    ctx.fillStyle = grad3;
+    ctx.beginPath();
+    ctx.arc(orb3X, orb3Y, 320, 0, Math.PI * 2);
     ctx.fill();
   }
 
   function animateParticles() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw ambient zero-gravity background glow
-    drawAmbientOrbs();
+    // Smooth Mouse Interpolation
+    mouse.x += (mouse.targetX - mouse.x) * 0.08;
+    mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
-    // Update & draw anti-gravity particle node field
+    // Render Cosmic Ambient Orbs
+    drawCosmicAmbientOrbs();
+
+    // Render Antigravity Particle Field & Constellations
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
 
-      // Connect Anti-Gravity Constellation Lines
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 130) {
+        if (dist < 140) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0, 242, 254, ${0.18 - dist / 720})`;
+          ctx.strokeStyle = `rgba(${particles[i].color.r}, ${particles[i].color.g}, ${particles[i].color.b}, ${0.16 - dist / 850})`;
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
 
-      // Magnetic line to cursor if nearby
-      if (mouse.x !== null && mouse.y !== null) {
+      // Magnetic Line Connection to Cursor
+      if (mouse.active) {
         const mdx = particles[i].x - mouse.x;
         const mdy = particles[i].y - mouse.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
-        if (mdist < 140) {
+        if (mdist < 150) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(0, 242, 254, ${0.25 - mdist / 560})`;
+          ctx.strokeStyle = `rgba(${particles[i].color.r}, ${particles[i].color.g}, ${particles[i].color.b}, ${0.28 - mdist / 530})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
