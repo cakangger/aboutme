@@ -1385,9 +1385,10 @@ button {
 }
 
 .logo-telkom {
-  height: 34px;
-  background: transparent;
-  padding: 0;
+  height: 32px;
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
 .timeline-text {
