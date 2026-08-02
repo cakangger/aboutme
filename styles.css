@@ -292,8 +292,12 @@ button {
 /* Waving Hand Emoji Animation */
 .wave-emoji {
   display: inline-block;
+  font-size: 1.25em;
+  line-height: 1;
+  margin-left: 3px;
   transform-origin: 70% 70%;
   animation: waveHand 2.2s infinite ease-in-out;
+  vertical-align: middle;
 }
 
 @keyframes waveHand {
