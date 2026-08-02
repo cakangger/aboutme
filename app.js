@@ -611,9 +611,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function unmuteAudio() {
+    if (!bgmAudio) return;
+    bgmAudio.muted = false;
+    bgmAudio.volume = 0.45;
+    if (bgmAudio.paused) {
+      bgmAudio.play().then(() => updateAudioUI(true)).catch(() => {});
+    } else {
+      updateAudioUI(true);
+    }
+  }
+
   function toggleAudio() {
     if (!bgmAudio) return;
-    if (bgmAudio.paused) {
+    if (bgmAudio.paused || bgmAudio.muted) {
+      bgmAudio.muted = false;
+      bgmAudio.volume = 0.45;
       bgmAudio.play().then(() => {
         isAudioPlaying = true;
         updateAudioUI(true);
@@ -628,9 +641,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateAudioUI(playing) {
-    if (playing) {
+    if (playing && bgmAudio && !bgmAudio.muted) {
       if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-pause";
       if (bgmStatusText) bgmStatusText.textContent = "Playing 🎵";
+      if (vuSoundMeter) vuSoundMeter.classList.add('active');
+    } else if (playing && bgmAudio && bgmAudio.muted) {
+      if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-volume-xmark";
+      if (bgmStatusText) bgmStatusText.textContent = "Tap anywhere for sound 🔊";
       if (vuSoundMeter) vuSoundMeter.classList.add('active');
     } else {
       if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-play";
@@ -647,24 +664,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Attempt instant autoplay on page load/reload
+  // Attempt initial playback (muted first to satisfy browser autoplay policies)
   if (bgmAudio) {
-    bgmAudio.volume = 0.45;
+    bgmAudio.muted = true;
     bgmAudio.play().then(() => {
-      updateAudioUI(true);
-    }).catch(() => {
-      // Browser autoplay policy deferred until first user activity
-    });
+      if (vuSoundMeter) vuSoundMeter.classList.add('active');
+    }).catch(() => {});
   }
 
-  // Auto-play on first scroll/click/mouse movement on reload
+  // Auto-unmute on first user interaction anywhere on the site
   const startAudioOnInteraction = () => {
-    if (!userInteracted && bgmAudio && bgmAudio.paused) {
+    if (!userInteracted && bgmAudio) {
       userInteracted = true;
-      bgmAudio.volume = 0.45;
-      bgmAudio.play().then(() => {
-        updateAudioUI(true);
-      }).catch(() => {});
+      unmuteAudio();
       document.removeEventListener('click', startAudioOnInteraction);
       document.removeEventListener('keydown', startAudioOnInteraction);
       document.removeEventListener('touchstart', startAudioOnInteraction);
