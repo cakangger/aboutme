@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cakangger.online/sitemap.xml
 Sitemap: https://about.cakangger.online/sitemap.xml
+Sitemap: https://cakangger.online/sitemap.xml
