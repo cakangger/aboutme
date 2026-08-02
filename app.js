@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Telegram Bot Credentials
   const TELEGRAM_CONFIG = {
     botToken: '8979652334:AAHoVk8hDeobG3zOVhCzxiQ0Bo3vXkmoujg',
-    chatId: 'YOUR_TELEGRAM_CHAT_ID'      // Send a message to your bot on Telegram then provide your Chat ID or ID from @userinfobot
+    chatId: '166403797'
   };
 
   function showToast(message, isError = false) {
