@@ -1848,10 +1848,10 @@ button {
   color: var(--primary);
 }
 
-.bgm-status {
-  font-size: 0.72rem;
-  color: var(--primary);
-  font-family: var(--font-mono);
+.bgm-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .bgm-play-btn {
@@ -1872,6 +1872,39 @@ button {
 
 .bgm-play-btn:hover {
   transform: scale(1.1);
+}
+
+.bgm-minimize-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.bgm-minimize-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Minimized State */
+.bgm-player-widget.minimized {
+  padding: 8px 12px;
+}
+
+.bgm-player-widget.minimized .bgm-info {
+  display: none;
+}
+
+.bgm-player-widget.minimized #bgm-minimize-icon {
+  transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {

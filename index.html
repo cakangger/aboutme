@@ -1032,7 +1032,7 @@
 
   <!-- Floating HTML5 Background Music & VU Sound Meter Widget -->
   <div class="bgm-player-widget glass-card" id="bgm-player-widget">
-    <audio id="bgm-audio" loop preload="auto">
+    <audio id="bgm-audio" autoplay loop preload="auto">
       <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
     <div class="bgm-widget-content">
@@ -1052,12 +1052,15 @@
 
       <div class="bgm-info">
         <span class="bgm-title"><i class="fa-solid fa-compact-disc"></i> Background Music</span>
-        <span class="bgm-status" id="bgm-status-text">Click anywhere to play 🎵</span>
+        <span class="bgm-status" id="bgm-status-text">Playing 🎵</span>
       </div>
 
       <div class="bgm-controls">
         <button class="bgm-play-btn" id="bgm-play-btn" title="Play / Pause BGM">
-          <i class="fa-solid fa-play" id="bgm-play-icon"></i>
+          <i class="fa-solid fa-pause" id="bgm-play-icon"></i>
+        </button>
+        <button class="bgm-minimize-btn" id="bgm-minimize-btn" title="Minimize / Expand Sound Widget">
+          <i class="fa-solid fa-chevron-left" id="bgm-minimize-icon"></i>
         </button>
       </div>
     </div>

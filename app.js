@@ -590,16 +590,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 11. HTML5 BACKGROUND MUSIC (BGM) PLAYER LOGIC
+  // 11. HTML5 BACKGROUND MUSIC (BGM) PLAYER LOGIC & MINIMIZE CONTROLS
   // --------------------------------------------------------------------------
   const bgmAudio = document.getElementById('bgm-audio');
   const bgmPlayBtn = document.getElementById('bgm-play-btn');
   const bgmPlayIcon = document.getElementById('bgm-play-icon');
   const bgmStatusText = document.getElementById('bgm-status-text');
   const vuSoundMeter = document.getElementById('vu-sound-meter');
+  const bgmPlayerWidget = document.getElementById('bgm-player-widget');
+  const bgmMinimizeBtn = document.getElementById('bgm-minimize-btn');
 
   let isAudioPlaying = false;
   let userInteracted = false;
+
+  // Minimize / Expand Widget Handler
+  if (bgmMinimizeBtn && bgmPlayerWidget) {
+    bgmMinimizeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      bgmPlayerWidget.classList.toggle('minimized');
+    });
+  }
 
   function toggleAudio() {
     if (!bgmAudio) return;
@@ -637,7 +647,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Auto-play on first click/touch interaction anywhere on the website
+  // Attempt instant autoplay on page load/reload
+  if (bgmAudio) {
+    bgmAudio.volume = 0.45;
+    bgmAudio.play().then(() => {
+      updateAudioUI(true);
+    }).catch(() => {
+      // Browser autoplay policy deferred until first user activity
+    });
+  }
+
+  // Auto-play on first scroll/click/mouse movement on reload
   const startAudioOnInteraction = () => {
     if (!userInteracted && bgmAudio && bgmAudio.paused) {
       userInteracted = true;
@@ -648,11 +668,15 @@ document.addEventListener('DOMContentLoaded', () => {
       document.removeEventListener('click', startAudioOnInteraction);
       document.removeEventListener('keydown', startAudioOnInteraction);
       document.removeEventListener('touchstart', startAudioOnInteraction);
+      document.removeEventListener('scroll', startAudioOnInteraction);
+      document.removeEventListener('mousemove', startAudioOnInteraction);
     }
   };
 
   document.addEventListener('click', startAudioOnInteraction);
   document.addEventListener('keydown', startAudioOnInteraction);
   document.addEventListener('touchstart', startAudioOnInteraction);
+  document.addEventListener('scroll', startAudioOnInteraction);
+  document.addEventListener('mousemove', startAudioOnInteraction);
 
 });
