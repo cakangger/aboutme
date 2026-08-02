@@ -678,62 +678,132 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   6. ABOUT SECTION
+   6. ABOUT SECTION (UNIFIED & COMPACT)
    -------------------------------------------------------------------------- */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px;
-  margin-bottom: 48px;
-}
-
-.about-bio-card {
+.about-card-unified {
   padding: 40px;
 }
 
-.card-header-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(0, 242, 254, 0.1);
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  margin-bottom: 20px;
+.about-main-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  align-items: start;
 }
 
-.about-bio-card h3 {
+.about-bio-side h3 {
   font-family: var(--font-heading);
   font-size: 1.6rem;
   margin-bottom: 16px;
 }
 
-.about-bio-card p {
+.about-bio-side p {
   color: var(--text-muted);
-  margin-bottom: 16px;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
-.personal-highlights {
+.personal-highlights-inline {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 24px;
   padding-top: 20px;
   border-top: 1px solid var(--border-color);
 }
 
-.highlight-item {
-  display: flex;
+.highlight-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--text-main);
 }
 
-.highlight-item i {
+.highlight-chip i {
   color: var(--primary);
+}
+
+.highlight-chip a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Compact Embedded Pillars */
+.pillars-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.compact-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.compact-pillar-card {
+  padding: 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+.compact-pillar-card:hover {
+  border-color: var(--primary);
+  background: rgba(0, 242, 254, 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 242, 254, 0.15);
+}
+
+.compact-pillar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.compact-pillar-header i {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.compact-pillar-header h5 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.compact-pillar-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .about-main-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .compact-pillars-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Terminal Widget */
