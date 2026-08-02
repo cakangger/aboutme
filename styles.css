@@ -413,9 +413,9 @@ button {
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: 3.8rem;
+  font-size: 3.2rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 16px;
 }
 
