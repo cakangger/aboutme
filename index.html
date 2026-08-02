@@ -1030,21 +1030,33 @@
   <!-- Toast Notification -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Background Music (BGM) YouTube Hidden Player & Floating Widget -->
-  <div id="bgm-player-container" style="position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; left: -9999px;">
-    <div id="yt-bgm-player"></div>
-  </div>
-
-  <div class="bgm-widget glass-card" id="bgm-widget">
-    <div class="bgm-equalizer" id="bgm-equalizer">
-      <span class="bar bar1"></span>
-      <span class="bar bar2"></span>
-      <span class="bar bar3"></span>
-      <span class="bar bar4"></span>
+  <!-- Floating Background Music (BGM) Mini Player Card -->
+  <div class="bgm-player-card glass-card" id="bgm-player-card">
+    <div class="bgm-card-header">
+      <div class="bgm-title-area">
+        <div class="bgm-equalizer active" id="bgm-equalizer">
+          <span class="bar bar1"></span>
+          <span class="bar bar2"></span>
+          <span class="bar bar3"></span>
+          <span class="bar bar4"></span>
+        </div>
+        <span class="bgm-card-title"><i class="fa-solid fa-music"></i> Background Music</span>
+      </div>
+      <div class="bgm-card-actions">
+        <button class="bgm-minimize-btn" id="bgm-minimize-btn" title="Minimize / Expand Player">
+          <i class="fa-solid fa-chevron-down" id="bgm-minimize-icon"></i>
+        </button>
+      </div>
     </div>
-    <button class="bgm-toggle-btn" id="bgm-toggle-btn" title="Toggle Background Music">
-      <i class="fa-solid fa-music"></i> <span id="bgm-status-text">BGM: Muted</span>
-    </button>
+    
+    <div class="bgm-card-body" id="bgm-card-body">
+      <iframe id="bgm-iframe" 
+              src="https://www.youtube.com/embed/xxpg9_2on3I?autoplay=1&mute=0&enablejsapi=1&loop=1&playlist=xxpg9_2on3I&controls=1" 
+              allow="autoplay; encrypted-media; picture-in-picture" 
+              allowfullscreen 
+              class="bgm-iframe">
+      </iframe>
+    </div>
   </div>
 
   <!-- Footer -->

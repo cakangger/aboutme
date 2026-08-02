@@ -590,111 +590,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 11. BACKGROUND MUSIC (BGM) YOUTUBE PLAYER & FLOATING CONTROL
-  // YouTube Video: https://www.youtube.com/watch?v=xxpg9_2on3I (Video ID: xxpg9_2on3I)
+  // 11. BACKGROUND MUSIC (BGM) PLAYER CARD CONTROLS
   // --------------------------------------------------------------------------
-  let bgmPlayer = null;
-  let isBgmPlaying = false;
-  let userInteracted = false;
+  const bgmPlayerCard = document.getElementById('bgm-player-card');
+  const bgmMinimizeBtn = document.getElementById('bgm-minimize-btn');
 
-  const bgmWidget = document.getElementById('bgm-widget');
-  const bgmToggleBtn = document.getElementById('bgm-toggle-btn');
-  const bgmStatusText = document.getElementById('bgm-status-text');
-  const bgmEqualizer = document.getElementById('bgm-equalizer');
-
-  // Load YouTube IFrame API Script Asynchronously
-  const ytScript = document.createElement('script');
-  ytScript.src = "https://www.youtube.com/iframe_api";
-  const firstScript = document.getElementsByTagName('script')[0];
-  firstScript.parentNode.insertBefore(ytScript, firstScript);
-
-  window.onYouTubeIframeAPIReady = function() {
-    bgmPlayer = new YT.Player('yt-bgm-player', {
-      height: '1',
-      width: '1',
-      videoId: 'xxpg9_2on3I',
-      playerVars: {
-        'autoplay': 1,
-        'controls': 0,
-        'loop': 1,
-        'playlist': 'xxpg9_2on3I',
-        'enablejsapi': 1,
-        'playsinline': 1
-      },
-      events: {
-        'onReady': onBgmPlayerReady,
-        'onStateChange': onBgmPlayerStateChange
-      }
-    });
-  };
-
-  function onBgmPlayerReady(event) {
-    // Attempt playback immediately
-    event.target.playVideo();
-
-    // Auto-unmute & ensure playback on first user interaction anywhere on the website
-    const startBgmOnInteraction = () => {
-      if (!userInteracted && bgmPlayer && typeof bgmPlayer.unMute === 'function') {
-        userInteracted = true;
-        try {
-          bgmPlayer.unMute();
-          bgmPlayer.setVolume(50);
-          bgmPlayer.playVideo();
-          updateBgmUI(true);
-        } catch (err) {
-          console.log("BGM Autoplay interaction handling:", err);
-        }
-        document.removeEventListener('click', startBgmOnInteraction);
-        document.removeEventListener('keydown', startBgmOnInteraction);
-        document.removeEventListener('touchstart', startBgmOnInteraction);
-      }
-    };
-
-    document.addEventListener('click', startBgmOnInteraction);
-    document.addEventListener('keydown', startBgmOnInteraction);
-    document.addEventListener('touchstart', startBgmOnInteraction);
-  }
-
-  function onBgmPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-      isBgmPlaying = true;
-      updateBgmUI(true);
-    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-      isBgmPlaying = false;
-      updateBgmUI(false);
-    }
-  }
-
-  function updateBgmUI(playing) {
-    if (!bgmStatusText || !bgmEqualizer || !bgmWidget) return;
-    if (playing) {
-      bgmStatusText.textContent = "BGM: ON";
-      bgmWidget.classList.add('playing');
-      bgmEqualizer.classList.add('active');
-    } else {
-      bgmStatusText.textContent = "BGM: Muted";
-      bgmWidget.classList.remove('playing');
-      bgmEqualizer.classList.remove('active');
-    }
-  }
-
-  if (bgmToggleBtn) {
-    bgmToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      userInteracted = true;
-      if (!bgmPlayer || typeof bgmPlayer.getPlayerState !== 'function') return;
-
-      const state = bgmPlayer.getPlayerState();
-      if (state === YT.PlayerState.PLAYING && !bgmPlayer.isMuted()) {
-        bgmPlayer.mute();
-        bgmPlayer.pauseVideo();
-        updateBgmUI(false);
-      } else {
-        bgmPlayer.unMute();
-        bgmPlayer.setVolume(50);
-        bgmPlayer.playVideo();
-        updateBgmUI(true);
-      }
+  if (bgmMinimizeBtn && bgmPlayerCard) {
+    bgmMinimizeBtn.addEventListener('click', () => {
+      bgmPlayerCard.classList.toggle('minimized');
     });
   }
 

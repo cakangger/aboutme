@@ -1758,48 +1758,88 @@ button {
   gap: 12px;
 }
 
-/* Background Music (BGM) Widget Styling */
-.bgm-widget {
+/* Background Music (BGM) Floating Player Card */
+.bgm-player-card {
   position: fixed;
   bottom: 24px;
   left: 24px;
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  width: 300px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(9, 13, 22, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glow);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bgm-player-card.minimized {
+  width: auto;
   padding: 8px 16px;
   border-radius: 50px;
-  background: rgba(9, 13, 22, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  transition: all var(--transition-fast);
 }
 
-.bgm-widget:hover {
-  border-color: var(--primary);
-  box-shadow: 0 0 20px var(--border-glow);
+.bgm-player-card.minimized .bgm-card-body {
+  display: none;
 }
 
-.bgm-widget.playing {
-  border-color: var(--primary);
+.bgm-player-card.minimized #bgm-minimize-icon {
+  transform: rotate(180deg);
 }
 
-.bgm-toggle-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-main);
-  font-size: 0.85rem;
-  font-weight: 600;
+.bgm-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bgm-title-area {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
-.bgm-toggle-btn i {
+.bgm-card-title i {
   color: var(--primary);
+  margin-right: 4px;
+}
+
+.bgm-minimize-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.bgm-minimize-btn:hover {
+  color: var(--primary);
+}
+
+.bgm-card-body {
+  margin-top: 10px;
+  width: 100%;
+  height: 155px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.bgm-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 /* Audio Equalizer Bars Animation */
