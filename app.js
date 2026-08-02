@@ -596,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgmPlayBtn = document.getElementById('bgm-play-btn');
   const bgmPlayIcon = document.getElementById('bgm-play-icon');
   const bgmStatusText = document.getElementById('bgm-status-text');
-  const bgmEqualizer = document.getElementById('bgm-equalizer');
+  const vuSoundMeter = document.getElementById('vu-sound-meter');
 
   let isAudioPlaying = false;
   let userInteracted = false;
@@ -621,11 +621,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (playing) {
       if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-pause";
       if (bgmStatusText) bgmStatusText.textContent = "Playing 🎵";
-      if (bgmEqualizer) bgmEqualizer.classList.add('active');
+      if (vuSoundMeter) vuSoundMeter.classList.add('active');
     } else {
       if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-play";
       if (bgmStatusText) bgmStatusText.textContent = "Paused";
-      if (bgmEqualizer) bgmEqualizer.classList.remove('active');
+      if (vuSoundMeter) vuSoundMeter.classList.remove('active');
     }
   }
 

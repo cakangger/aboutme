@@ -1030,29 +1030,35 @@
   <!-- Toast Notification -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Floating Background Music (BGM) Player Widget -->
+  <!-- Floating HTML5 Background Music & VU Sound Meter Widget -->
   <div class="bgm-player-widget glass-card" id="bgm-player-widget">
     <audio id="bgm-audio" loop preload="auto">
       <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
     <div class="bgm-widget-content">
-      <div class="bgm-equalizer" id="bgm-equalizer">
-        <span class="bar bar1"></span>
-        <span class="bar bar2"></span>
-        <span class="bar bar3"></span>
-        <span class="bar bar4"></span>
+      <!-- 10-Bar LED VU Sound Meter -->
+      <div class="vu-sound-meter" id="vu-sound-meter">
+        <span class="vu-bar vbar-1"></span>
+        <span class="vu-bar vbar-2"></span>
+        <span class="vu-bar vbar-3"></span>
+        <span class="vu-bar vbar-4"></span>
+        <span class="vu-bar vbar-5"></span>
+        <span class="vu-bar vbar-6"></span>
+        <span class="vu-bar vbar-7"></span>
+        <span class="vu-bar vbar-8"></span>
+        <span class="vu-bar vbar-9"></span>
+        <span class="vu-bar vbar-10"></span>
       </div>
+
       <div class="bgm-info">
-        <span class="bgm-title">Ambient BGM</span>
-        <span class="bgm-status" id="bgm-status-text">Click to Play</span>
+        <span class="bgm-title"><i class="fa-solid fa-compact-disc"></i> Background Music</span>
+        <span class="bgm-status" id="bgm-status-text">Click anywhere to play 🎵</span>
       </div>
+
       <div class="bgm-controls">
         <button class="bgm-play-btn" id="bgm-play-btn" title="Play / Pause BGM">
           <i class="fa-solid fa-play" id="bgm-play-icon"></i>
         </button>
-        <a href="https://www.youtube.com/watch?v=xxpg9_2on3I" target="_blank" rel="noopener noreferrer" class="bgm-yt-link" title="Open YouTube Track">
-          <i class="fa-brands fa-youtube"></i>
-        </a>
       </div>
     </div>
   </div>
