@@ -502,10 +502,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactForm = document.getElementById('contact-form');
   const toastContainer = document.getElementById('toast-container');
 
-  // Telegram Bot Credentials (Replace with your actual Telegram Bot Token & Chat ID)
+  // Telegram Bot Credentials
   const TELEGRAM_CONFIG = {
-    botToken: 'YOUR_TELEGRAM_BOT_TOKEN', // Example: '123456789:ABCdefGHIjklMNOpqrsTUVwxyz'
-    chatId: 'YOUR_TELEGRAM_CHAT_ID'      // Example: '123456789' or your Telegram user ID
+    botToken: '8979652334:AAHoVk8hDeobG3zOVhCzxiQ0Bo3vXkmoujg',
+    chatId: 'YOUR_TELEGRAM_CHAT_ID'      // Send a message to your bot on Telegram then provide your Chat ID or ID from @userinfobot
   };
 
   function showToast(message, isError = false) {
