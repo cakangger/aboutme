@@ -1030,6 +1030,23 @@
   <!-- Toast Notification -->
   <div class="toast-container" id="toast-container"></div>
 
+  <!-- Background Music (BGM) YouTube Hidden Player & Floating Widget -->
+  <div id="bgm-player-container" style="position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; left: -9999px;">
+    <div id="yt-bgm-player"></div>
+  </div>
+
+  <div class="bgm-widget glass-card" id="bgm-widget">
+    <div class="bgm-equalizer" id="bgm-equalizer">
+      <span class="bar bar1"></span>
+      <span class="bar bar2"></span>
+      <span class="bar bar3"></span>
+      <span class="bar bar4"></span>
+    </div>
+    <button class="bgm-toggle-btn" id="bgm-toggle-btn" title="Toggle Background Music">
+      <i class="fa-solid fa-music"></i> <span id="bgm-status-text">BGM: Muted</span>
+    </button>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
