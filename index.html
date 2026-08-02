@@ -1032,9 +1032,18 @@
 
   <!-- Floating HTML5 Background Music & VU Sound Meter Widget -->
   <div class="bgm-player-widget glass-card" id="bgm-player-widget">
-    <audio id="bgm-audio" autoplay loop preload="auto">
-      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgm-audio" autoplay loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"></audio>
+    <script>
+      (function() {
+        var a = document.getElementById('bgm-audio');
+        if (a) {
+          a.volume = 0.5;
+          a.muted = false;
+          var p = a.play();
+          if (p !== undefined) { p.catch(function(){}); }
+        }
+      })();
+    </script>
     <div class="bgm-widget-content">
       <!-- 10-Bar LED VU Sound Meter -->
       <div class="vu-sound-meter active" id="vu-sound-meter">
