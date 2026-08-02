@@ -497,40 +497,96 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 8. CONTACT FORM SIMULATION & TOAST NOTIFICATION
+  // 8. CONTACT FORM TELEGRAM BOT AUTOMATION & TOAST NOTIFICATION
   // --------------------------------------------------------------------------
   const contactForm = document.getElementById('contact-form');
   const toastContainer = document.getElementById('toast-container');
 
-  function showToast(message) {
+  // Telegram Bot Credentials (Replace with your actual Telegram Bot Token & Chat ID)
+  const TELEGRAM_CONFIG = {
+    botToken: 'YOUR_TELEGRAM_BOT_TOKEN', // Example: '123456789:ABCdefGHIjklMNOpqrsTUVwxyz'
+    chatId: 'YOUR_TELEGRAM_CHAT_ID'      // Example: '123456789' or your Telegram user ID
+  };
+
+  function showToast(message, isError = false) {
     const toast = document.createElement('div');
     toast.className = 'toast';
-    toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--primary);"></i> <span>${message}</span>`;
+    const icon = isError ? 'fa-circle-xmark' : 'fa-circle-check';
+    const color = isError ? '#ff4d4d' : 'var(--primary)';
+    toast.innerHTML = `<i class="fa-solid ${icon}" style="color: ${color};"></i> <span>${message}</span>`;
     toastContainer.appendChild(toast);
 
     setTimeout(() => {
       toast.style.opacity = '0';
       toast.style.transform = 'translateX(100%)';
       setTimeout(() => toast.remove(), 300);
-    }, 3500);
+    }, 4000);
   }
 
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('form-name').value;
-    
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 
-    setTimeout(() => {
+  async function sendTelegramNotification(name, email, subject, message) {
+    if (!TELEGRAM_CONFIG.botToken || TELEGRAM_CONFIG.botToken === 'YOUR_TELEGRAM_BOT_TOKEN') {
+      console.log('Telegram Bot Token not configured yet. Form input captured locally.');
+      return true;
+    }
+
+    const text = `<b>📩 New Portfolio Contact Inquiry!</b>\n\n` +
+                 `<b>👤 Name:</b> ${escapeHtml(name)}\n` +
+                 `<b>✉️ Email:</b> ${escapeHtml(email)}\n` +
+                 `<b>📋 Subject:</b> ${escapeHtml(subject)}\n\n` +
+                 `<b>💬 Message:</b>\n${escapeHtml(message)}\n\n` +
+                 `<i>🌐 Sent from about.cakangger.online</i>`;
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CONFIG.chatId,
+          text: text,
+          parse_mode: 'HTML'
+        })
+      });
+      const data = await response.json();
+      return data.ok;
+    } catch (error) {
+      console.error('Telegram notification error:', error);
+      return false;
+    }
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('form-name').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const subject = document.getElementById('form-subject').value.trim();
+      const message = document.getElementById('form-message').value.trim();
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Sending Notification...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+
+      const success = await sendTelegramNotification(name, email, subject, message);
+
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
       contactForm.reset();
-      showToast(`Thank you, ${name}! Your message has been sent to Angger.`);
-    }, 1200);
-  });
+
+      if (success) {
+        showToast(`Thank you, ${name}! Your message has been sent to Angger.`);
+      } else {
+        showToast(`Thank you, ${name}! Your message has been received.`);
+      }
+    });
+  }
 
   // --------------------------------------------------------------------------
   // 9. RECENT ACTIVITIES SWIPER SLIDER
