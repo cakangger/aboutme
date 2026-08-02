@@ -590,15 +590,69 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 11. BACKGROUND MUSIC (BGM) PLAYER CARD CONTROLS
+  // 11. HTML5 BACKGROUND MUSIC (BGM) PLAYER LOGIC
   // --------------------------------------------------------------------------
-  const bgmPlayerCard = document.getElementById('bgm-player-card');
-  const bgmMinimizeBtn = document.getElementById('bgm-minimize-btn');
+  const bgmAudio = document.getElementById('bgm-audio');
+  const bgmPlayBtn = document.getElementById('bgm-play-btn');
+  const bgmPlayIcon = document.getElementById('bgm-play-icon');
+  const bgmStatusText = document.getElementById('bgm-status-text');
+  const bgmEqualizer = document.getElementById('bgm-equalizer');
 
-  if (bgmMinimizeBtn && bgmPlayerCard) {
-    bgmMinimizeBtn.addEventListener('click', () => {
-      bgmPlayerCard.classList.toggle('minimized');
+  let isAudioPlaying = false;
+  let userInteracted = false;
+
+  function toggleAudio() {
+    if (!bgmAudio) return;
+    if (bgmAudio.paused) {
+      bgmAudio.play().then(() => {
+        isAudioPlaying = true;
+        updateAudioUI(true);
+      }).catch(err => {
+        console.log("Audio playback prevented:", err);
+      });
+    } else {
+      bgmAudio.pause();
+      isAudioPlaying = false;
+      updateAudioUI(false);
+    }
+  }
+
+  function updateAudioUI(playing) {
+    if (playing) {
+      if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-pause";
+      if (bgmStatusText) bgmStatusText.textContent = "Playing 🎵";
+      if (bgmEqualizer) bgmEqualizer.classList.add('active');
+    } else {
+      if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-play";
+      if (bgmStatusText) bgmStatusText.textContent = "Paused";
+      if (bgmEqualizer) bgmEqualizer.classList.remove('active');
+    }
+  }
+
+  if (bgmPlayBtn) {
+    bgmPlayBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userInteracted = true;
+      toggleAudio();
     });
   }
+
+  // Auto-play on first click/touch interaction anywhere on the website
+  const startAudioOnInteraction = () => {
+    if (!userInteracted && bgmAudio && bgmAudio.paused) {
+      userInteracted = true;
+      bgmAudio.volume = 0.45;
+      bgmAudio.play().then(() => {
+        updateAudioUI(true);
+      }).catch(() => {});
+      document.removeEventListener('click', startAudioOnInteraction);
+      document.removeEventListener('keydown', startAudioOnInteraction);
+      document.removeEventListener('touchstart', startAudioOnInteraction);
+    }
+  };
+
+  document.addEventListener('click', startAudioOnInteraction);
+  document.addEventListener('keydown', startAudioOnInteraction);
+  document.addEventListener('touchstart', startAudioOnInteraction);
 
 });
