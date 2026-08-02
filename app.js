@@ -600,9 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgmPlayerWidget = document.getElementById('bgm-player-widget');
   const bgmMinimizeBtn = document.getElementById('bgm-minimize-btn');
 
-  let isAudioPlaying = false;
-  let userInteracted = false;
-
   // Minimize / Expand Widget Handler
   if (bgmMinimizeBtn && bgmPlayerWidget) {
     bgmMinimizeBtn.addEventListener('click', (e) => {
@@ -611,43 +608,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function unmuteAudio() {
+  function playUnmutedAudio() {
     if (!bgmAudio) return;
     bgmAudio.muted = false;
-    bgmAudio.volume = 0.45;
-    if (bgmAudio.paused) {
-      bgmAudio.play().then(() => updateAudioUI(true)).catch(() => {});
-    } else {
+    bgmAudio.volume = 0.5;
+    bgmAudio.play().then(() => {
       updateAudioUI(true);
-    }
+    }).catch(err => {
+      console.log("Unmuted autoplay restricted by browser policy:", err);
+    });
   }
 
   function toggleAudio() {
     if (!bgmAudio) return;
-    if (bgmAudio.paused || bgmAudio.muted) {
-      bgmAudio.muted = false;
-      bgmAudio.volume = 0.45;
-      bgmAudio.play().then(() => {
-        isAudioPlaying = true;
-        updateAudioUI(true);
-      }).catch(err => {
-        console.log("Audio playback prevented:", err);
-      });
+    if (bgmAudio.paused) {
+      playUnmutedAudio();
     } else {
       bgmAudio.pause();
-      isAudioPlaying = false;
       updateAudioUI(false);
     }
   }
 
   function updateAudioUI(playing) {
-    if (playing && bgmAudio && !bgmAudio.muted) {
+    if (playing) {
       if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-pause";
       if (bgmStatusText) bgmStatusText.textContent = "Playing 🎵";
-      if (vuSoundMeter) vuSoundMeter.classList.add('active');
-    } else if (playing && bgmAudio && bgmAudio.muted) {
-      if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-volume-xmark";
-      if (bgmStatusText) bgmStatusText.textContent = "Tap anywhere for sound 🔊";
       if (vuSoundMeter) vuSoundMeter.classList.add('active');
     } else {
       if (bgmPlayIcon) bgmPlayIcon.className = "fa-solid fa-play";
@@ -659,36 +644,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bgmPlayBtn) {
     bgmPlayBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      userInteracted = true;
       toggleAudio();
     });
   }
 
-  // Attempt initial playback (muted first to satisfy browser autoplay policies)
+  // Play unmuted music immediately on script execution
   if (bgmAudio) {
-    bgmAudio.muted = true;
-    bgmAudio.play().then(() => {
-      if (vuSoundMeter) vuSoundMeter.classList.add('active');
-    }).catch(() => {});
+    playUnmutedAudio();
   }
 
-  // Auto-unmute on first user interaction anywhere on the site
-  const startAudioOnInteraction = () => {
-    if (!userInteracted && bgmAudio) {
-      userInteracted = true;
-      unmuteAudio();
-      document.removeEventListener('click', startAudioOnInteraction);
-      document.removeEventListener('keydown', startAudioOnInteraction);
-      document.removeEventListener('touchstart', startAudioOnInteraction);
-      document.removeEventListener('scroll', startAudioOnInteraction);
-      document.removeEventListener('mousemove', startAudioOnInteraction);
+  // Triggers unmuted playback on any initial movement / touch / click / scroll
+  const forceUnmutedOnActivity = () => {
+    if (bgmAudio && bgmAudio.paused) {
+      playUnmutedAudio();
     }
   };
 
-  document.addEventListener('click', startAudioOnInteraction);
-  document.addEventListener('keydown', startAudioOnInteraction);
-  document.addEventListener('touchstart', startAudioOnInteraction);
-  document.addEventListener('scroll', startAudioOnInteraction);
-  document.addEventListener('mousemove', startAudioOnInteraction);
+  ['click', 'keydown', 'touchstart', 'scroll', 'mousemove'].forEach(evt => {
+    document.addEventListener(evt, forceUnmutedOnActivity, { passive: true });
+  });
 
 });
