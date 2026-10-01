@@ -720,4 +720,251 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener(evt, forceUnmutedOnActivity, { passive: true });
   });
 
+  // --------------------------------------------------------------------------
+  // 10. GEMINI 3.8 FLASH AI ASSISTANT CHATBOT WIDGET
+  // --------------------------------------------------------------------------
+  const aiChatToggle = document.getElementById('ai-chat-toggle');
+  const aiChatWindow = document.getElementById('ai-chat-window');
+  const aiCloseBtn = document.getElementById('ai-close-btn');
+  const aiSettingsBtn = document.getElementById('ai-settings-btn');
+  const aiSettingsPanel = document.getElementById('ai-settings-panel');
+  const aiClearBtn = document.getElementById('ai-clear-btn');
+  const apiKeyInput = document.getElementById('gemini-api-key-input');
+  const saveApiKeyBtn = document.getElementById('save-api-key-btn');
+  const aiChatMessages = document.getElementById('ai-chat-messages');
+  const aiChatForm = document.getElementById('ai-chat-form');
+  const aiChatInput = document.getElementById('ai-chat-input');
+  const aiQuickPrompts = document.getElementById('ai-quick-prompts');
+
+  const STORAGE_KEY = 'ANGGER_GEMINI_API_KEY';
+
+  // System instruction detailing Angger Kartyasa's portfolio context
+  const ANGGER_SYSTEM_INSTRUCTION = `You are Angger AI Assistant, an intelligent virtual representative for Angger Kartyasa Pribadi Putra.
+Your role is to answer visitor questions accurately, professionally, and concisely based on Angger's portfolio:
+
+ANGGER KARTYASA PRIBADI PUTRA'S PROFILE SUMMARY:
+- Current Role: B2B Enterprise Technical Solution Engineer at Samsung R&D Institute Indonesia (SRIN) for 3.8+ years (Jul 2022 - Present).
+- Total Experience: 9+ Total Years of IT Career Experience (Oct 2016 - Present).
+- Previous Experience: 6 years at PT. Astra Graphia Information Technology (AGIT - Oct 2016 to Sep 2022) across 4 roles: Security & Cloud Solution Architect, Project Manager IT Infra, Team Lead IT Infra, and System Engineer IT Infra.
+- Education: Telkom University Alumnus (Computer Engineering, 2011-2015, GPA 3.35/4.00).
+- Location: Jakarta Pusat, Indonesia.
+- Email: anggerkpp@gmail.com
+- LinkedIn: linkedin.com/in/anggerkpp
+- GitHub: github.com/cakangger
+- Core Expertise: Samsung Knox Suite Enterprise B2B, Microsoft Intune MDM, Microsoft Azure Cloud Security, Azure Sentinel & Defender SIEM, Windows Server Enterprise Roles (Active Directory, ADFS, DNS, DHCP, WSUS, NPS, ADCS), Hybrid Exchange & Office 365.
+- Key Awards & Honors: Samsung STAR Team Award Winner (Back-to-back 2024 & 2025), Google Cybersecurity Certified, Android Enterprise Certified Expert.
+
+BEHAVIOR RULES:
+- Be polite, helpful, confident, and professional.
+- Respond in the language used by the visitor (Indonesian or English).
+- Provide crisp, structured answers using bullet points when listing skills, projects, or contact details.
+- Encourage visitors to connect via email (anggerkpp@gmail.com) or LinkedIn for enterprise B2B solutions or career opportunities.`;
+
+  let conversationHistory = [];
+
+  // Load saved API key into input
+  if (apiKeyInput) {
+    const savedKey = localStorage.getItem(STORAGE_KEY) || '';
+    apiKeyInput.value = savedKey;
+  }
+
+  // Toggle Chat Window
+  if (aiChatToggle && aiChatWindow) {
+    aiChatToggle.addEventListener('click', () => {
+      const isActive = aiChatWindow.classList.contains('active');
+      if (isActive) {
+        aiChatWindow.classList.remove('active');
+        aiChatWindow.setAttribute('aria-hidden', 'true');
+      } else {
+        aiChatWindow.classList.add('active');
+        aiChatWindow.setAttribute('aria-hidden', 'false');
+        if (aiChatInput) aiChatInput.focus();
+      }
+    });
+  }
+
+  if (aiCloseBtn && aiChatWindow) {
+    aiCloseBtn.addEventListener('click', () => {
+      aiChatWindow.classList.remove('active');
+      aiChatWindow.setAttribute('aria-hidden', 'true');
+    });
+  }
+
+  // Toggle Settings Panel
+  if (aiSettingsBtn && aiSettingsPanel) {
+    aiSettingsBtn.addEventListener('click', () => {
+      const isVisible = aiSettingsPanel.style.display !== 'none';
+      aiSettingsPanel.style.display = isVisible ? 'none' : 'block';
+    });
+  }
+
+  // Save API Key
+  if (saveApiKeyBtn && apiKeyInput) {
+    saveApiKeyBtn.addEventListener('click', () => {
+      const keyVal = apiKeyInput.value.trim();
+      if (keyVal) {
+        localStorage.setItem(STORAGE_KEY, keyVal);
+        showToast('Gemini API Key saved successfully!');
+        if (aiSettingsPanel) aiSettingsPanel.style.display = 'none';
+      } else {
+        localStorage.removeItem(STORAGE_KEY);
+        showToast('API Key removed.', true);
+      }
+    });
+  }
+
+  // Clear Chat History
+  if (aiClearBtn) {
+    aiClearBtn.addEventListener('click', () => {
+      conversationHistory = [];
+      if (aiChatMessages) {
+        aiChatMessages.innerHTML = `
+          <div class="chat-msg bot-msg">
+            <div class="msg-avatar"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
+            <div class="msg-content">
+              <p>Halo! 👋 Saya <strong>Angger AI Assistant</strong>.</p>
+              <p>Percakapan telah direset. Ada yang bisa saya bantu seputar profil dan solusi enterprise <strong>Angger Kartyasa</strong>?</p>
+            </div>
+          </div>
+        `;
+      }
+      showToast('Chat history cleared.');
+    });
+  }
+
+  // Quick Prompt Chips
+  if (aiQuickPrompts) {
+    aiQuickPrompts.addEventListener('click', (e) => {
+      const chip = e.target.closest('.quick-chip');
+      if (chip) {
+        const promptText = chip.getAttribute('data-prompt');
+        if (promptText && aiChatInput) {
+          aiChatInput.value = promptText;
+          if (aiChatForm) aiChatForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        }
+      }
+    });
+  }
+
+  // Format simple markdown text
+  function formatMarkdown(text) {
+    if (!text) return '';
+    let formatted = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>');
+    return `<p>${formatted}</p>`;
+  }
+
+  // Append Chat Message to UI
+  function appendMessage(role, text) {
+    if (!aiChatMessages) return;
+
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-msg ${role === 'user' ? 'user-msg' : 'bot-msg'}`;
+
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = 'msg-avatar';
+    avatarDiv.innerHTML = role === 'user' ? '<i class="fa-solid fa-user" aria-hidden="true"></i>' : '<i class="fa-solid fa-robot" aria-hidden="true"></i>';
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'msg-content';
+    contentDiv.innerHTML = formatMarkdown(text);
+
+    msgDiv.appendChild(avatarDiv);
+    msgDiv.appendChild(contentDiv);
+    aiChatMessages.appendChild(msgDiv);
+
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    return msgDiv;
+  }
+
+  // Show Typing Indicator
+  function showTypingIndicator() {
+    if (!aiChatMessages) return null;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chat-msg bot-msg typing-msg';
+    msgDiv.innerHTML = `
+      <div class="msg-avatar"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
+      <div class="msg-content">
+        <div class="typing-dots"><span></span><span></span><span></span></div>
+      </div>
+    `;
+    aiChatMessages.appendChild(msgDiv);
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    return msgDiv;
+  }
+
+  // Send Prompt to Gemini 3.8 Flash API
+  async function callGeminiApi(userPrompt) {
+    const apiKey = localStorage.getItem(STORAGE_KEY) || '';
+
+    if (!apiKey) {
+      if (aiSettingsPanel) aiSettingsPanel.style.display = 'block';
+      return "⚠️ Silakan masukkan **Gemini API Key** Anda pada panel di atas (dapatkan gratis di [aistudio.google.com](https://aistudio.google.com/app/apikey)). Key disimpan secara aman di browser Anda.";
+    }
+
+    conversationHistory.push({ role: 'user', parts: [{ text: userPrompt }] });
+
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
+
+    const requestBody = {
+      system_instruction: {
+        parts: [{ text: ANGGER_SYSTEM_INSTRUCTION }]
+      },
+      contents: conversationHistory,
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 800
+      }
+    };
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Gemini API Error:', data);
+        const errMsg = data.error?.message || 'Error communicating with Gemini API';
+        return `⚠️ API Error: ${errMsg}`;
+      }
+
+      const botText = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Maaf, tidak ada respon dari Gemini API.';
+      conversationHistory.push({ role: 'model', parts: [{ text: botText }] });
+      return botText;
+    } catch (err) {
+      console.error('Fetch Error:', err);
+      return '⚠️ Terjadi kesalahan jaringan saat menghubungkan ke Gemini API. Silakan periksa koneksi internet Anda.';
+    }
+  }
+
+  // Form Submission Event Listener
+  if (aiChatForm && aiChatInput) {
+    aiChatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userText = aiChatInput.value.trim();
+      if (!userText) return;
+
+      appendMessage('user', userText);
+      aiChatInput.value = '';
+
+      const typingElem = showTypingIndicator();
+
+      const botReply = await callGeminiApi(userText);
+
+      if (typingElem) typingElem.remove();
+      appendMessage('bot', botReply);
+    });
+  }
+
 });

@@ -1103,6 +1103,88 @@
     </div>
   </div>
 
+  <!-- Floating Gemini AI Assistant Chatbot Widget -->
+  <div class="ai-chat-container" id="ai-chat-container">
+    <!-- Floating Launcher Button -->
+    <button class="ai-chat-toggle" id="ai-chat-toggle" aria-label="Open AI Assistant Chatbot" title="Chat with Angger's AI Assistant">
+      <div class="ai-toggle-icon">
+        <i class="fa-solid fa-robot" aria-hidden="true"></i>
+      </div>
+      <span class="ai-toggle-pulse"></span>
+      <span class="ai-toggle-badge">AI Assistant</span>
+    </button>
+
+    <!-- Chat Window -->
+    <div class="ai-chat-window glass-card" id="ai-chat-window" aria-hidden="true">
+      <!-- Chat Header -->
+      <div class="ai-chat-header">
+        <div class="ai-chat-title-group">
+          <div class="ai-avatar-badge">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="ai-chat-name">Angger AI Assistant</h4>
+            <span class="ai-chat-status"><span class="status-dot"></span> Powered by Gemini 3.8 Flash</span>
+          </div>
+        </div>
+        <div class="ai-chat-header-actions">
+          <button class="ai-action-btn" id="ai-settings-btn" title="API Key Settings" aria-label="Configure Gemini API Key">
+            <i class="fa-solid fa-key" aria-hidden="true"></i>
+          </button>
+          <button class="ai-action-btn" id="ai-clear-btn" title="Clear Conversation" aria-label="Clear chat history">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+          </button>
+          <button class="ai-action-btn" id="ai-close-btn" title="Close Chat" aria-label="Close chat window">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings Panel (Collapsible) -->
+      <div class="ai-settings-panel" id="ai-settings-panel" style="display: none;">
+        <div class="ai-settings-content">
+          <label for="gemini-api-key-input"><i class="fa-solid fa-key" aria-hidden="true"></i> Gemini API Key</label>
+          <div class="ai-key-input-group">
+            <input type="password" id="gemini-api-key-input" placeholder="AIzaSy..." autocomplete="off" spellcheck="false">
+            <button type="button" id="save-api-key-btn" class="btn btn-primary btn-sm">Save Key</button>
+          </div>
+          <p class="ai-key-help">
+            Key is stored locally in your browser. Get a free key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div class="ai-chat-messages" id="ai-chat-messages">
+        <!-- Initial Welcome Message -->
+        <div class="chat-msg bot-msg">
+          <div class="msg-avatar"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
+          <div class="msg-content">
+            <p>Halo! 👋 Saya <strong>Angger AI Assistant</strong>.</p>
+            <p>Ada yang bisa saya bantu seputar pengalaman karir <strong>Angger Kartyasa</strong> (9+ tahun di Samsung R&D & AGIT), keahlian Knox MDM, Azure SIEM, atau diskusi solusi B2B?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Prompt Suggestions -->
+      <div class="ai-quick-prompts" id="ai-quick-prompts">
+        <button class="quick-chip" data-prompt="Apa keahlian Angger di Samsung R&D Institute Indonesia?">📱 Keahlian Samsung R&D</button>
+        <button class="quick-chip" data-prompt="Apa saja sertifikasi profesional yang dimiliki Angger?">🏆 Sertifikasi Professional</button>
+        <button class="quick-chip" data-prompt="Bagaimana cara menghubungi Angger untuk kolaborasi B2B?">✉️ Kontak & Kolaborasi</button>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="ai-chat-input-container">
+        <form id="ai-chat-form" class="ai-chat-form">
+          <input type="text" id="ai-chat-input" placeholder="Tanyakan sesuatu tentang Angger…" autocomplete="off" required>
+          <button type="submit" id="ai-chat-send" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
